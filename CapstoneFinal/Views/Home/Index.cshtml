@@ -1,0 +1,24 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<div id="Output">
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/View/",
+            success: function (data) {
+                console.log(data);
+                for (i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    var car = data[i];
+                    var carInfo = car.Make + car.Model + car.Year + car.Color;
+                    $('#Output').append("<p>" + carInfo + "</p>");
+                }
+                // $("#Output").text(data[0].Name);
+            }
+        });
+    });
+</script>
