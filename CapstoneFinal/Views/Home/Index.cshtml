@@ -1,24 +1,9 @@
 ﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<div id="Output">
-
-</div>
-
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "/api/View/",
-            success: function (data) {
-                console.log(data);
-                for (i = 0; i < data.length; i++) {
-                    console.log(data[i]);
-                    var car = data[i];
-                    var carInfo = car.Make + car.Model + car.Year + car.Color;
-                    $('#Output').append("<p>" + carInfo + "</p>");
-                }
-                // $("#Output").text(data[0].Name);
-            }
-        });
-    });
-</script>
+<form action="Result" method="post">
+    <p>Make: </p> <input type="text" name="Make" value="" required=""/>
+    <p>Model: </p> <input type="text" name="Model" value="" required=""/>
+    <p>Year: </p> <input type="number" name="Year" value="" required=""/>
+    <p>Color: </p> <input type="text" name="Color" value="" required=""/>
+    <input type="submit" value="Submit" />
+</form>

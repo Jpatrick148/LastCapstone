@@ -12,18 +12,58 @@ using CapstoneFinal.Models;
 
 namespace CapstoneFinal.Controllers
 {
-    
+    [RoutePrefix("api/cars")]   
     public class ViewController : ApiController
     {
         private CarContext db = new CarContext();
 
         // GET: api/View
-        [HttpGet]
-        
+        [Route("")]
         public IQueryable<Car> GetCars()
         {
             return db.Cars;
         }
+
+        [Route("")]
+        public List<Car> GetCars(string Make, string Model, int Year, string Color)
+        {
+            var query = db.Cars.Where(c => c.Make.Contains(Make) && c.Model.Contains(Model) && c.Year == Year && c.Color.Contains(Color));
+            List<Car> search = query.ToList<Car>();
+            return search;
+        }
+
+        [Route("Make={Make}")]
+        [HttpGet]
+        public List<Car> GetMakeCars(string Make)
+        {
+            var Makes = db.Cars.Where(c => c.Make.Contains(Make)).ToList();
+            return Makes;
+        }
+
+        [Route("Model={Model}")]
+        [HttpGet]
+        public List<Car> GetModelCars(string Model)
+        {
+            var Models = db.Cars.Where(c => c.Make.Contains(Model)).ToList();
+            return Models;
+        }
+
+        [Route("Year={Year}")]
+        [HttpGet]
+        public List<Car> GetYearCars(int Year)
+        {
+            var Years = db.Cars.Where(c => c.Year == Year).ToList();
+            return Years;
+        }
+
+        [Route("Color={Color}")]
+        [HttpGet]
+        public List<Car> GetColorCars(string Color)
+        {
+            var Colors = db.Cars.Where(c => c.Color.Contains(Color)).ToList();
+            return Colors;
+        }
+
 
         // GET: api/View/5
         [ResponseType(typeof(Car))]
